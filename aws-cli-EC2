@@ -1,0 +1,53 @@
+###################################### launch ec2 instance with cli #################################################
+
+#### sudo apt install awscli
+
+aws --version
+
+aws configure
+
+#### aws ec2 run-instances --image-id ami-09e67e426f25ce0d7 --count 1 --instance-type t2.micro --key-name awslearning --security-group-ids sg-0cddfca551643bf8c --subnet-id subnet-0f59601c8d2acead3                   
+
+
+######################## Add tags to  give name to ec2 instance ####################################
+
+aws ec2 create-tags --resources i-0bd2cecf41fba779c --tags Key=Name,Value=instance1
+
+################################# for listing all instances for an instance type.##################################3
+
+aws ec2 describe-instances --filters "Name=instance-type,Values=t2.micro" --query Reservations[].Instances[].InstancId
+
+############################## list all instances with a specific ami........ ######################################
+
+aws ec2 describe-instances --filters "Name=image-id,Values=ami-09e67e426f25ce0d7" --query Reservations[].Instances[].InstanceId
+
+############################### list all instances with aspecific tags.... ###########################################
+
+aws ec2 describe-instances --filters "Name=tag:Name,Values=instance1"
+
+###################################### stop ec2 instance #########################################
+
+aws ec2 stop-instances --instance-ids i-0bd2cecf41fba779c
+
+####################################### start ec2 instance #################################
+
+aws ec2 start-instances --instance-ids i-0bd2cecf41fba779c
+
+################################ terminate your instance ####################################
+
+aws ec2 terminate-instances --instance-ids i-0bd2cecf41fba779c
+
+################################## To write user data in ec2 instance ###########################
+
+aws ec2 run-instances --image-id ami-09e67e426f25ce0d7 --count 1 --instance-type t2.micro --key-name awslearning --security-group-ids sg-0cddfca551643bf8c --subnet-id subnet-0f59601c8d2acead3 --user-data file://wp-script-1
+
+
+####################################### To view user data in ec2 instance ###################################
+
+aws ec2 describe-instance-attribute --instance-id i-011da05dfc7e8c3ec --attribute userData
+
+######################################## clear the user data of the stop instance.##############################
+
+aws ec2 modify-instance-attribute --instance-id i-011da05dfc7e8c3ec --user-data Value=
+
+                                                   $$$$$$$$$$$$$$ END $$$$$$$$$$$$$$$$

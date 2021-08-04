@@ -1,0 +1,46 @@
+############################### manage all things with aws-cli ##############################################
+
+########### To keep credentials ###########
+
+aws configure
+
+########### To list bucket ############
+
+aws s3 ls
+
+########## To create bucket #############
+
+aws s3 mb s3://domainbucket0       
+
+######### To remove bucket ###############
+
+aws s3 rb s3://domainbucket0 
+
+########## If bucket is not empty ###############
+
+aws s3 rb s3://domainbucket0 --force        
+
+############ Copy local machine files in s3 #################
+
+aws s3 cp wp-script-1 s3://domainbucket0               
+
+############### list the data of s3 bucket ###########
+
+aws s3 ls s3://domainbucket0     
+
+############## To sync data in s3 #################
+
+aws s3 sync . s3://domainbucket0       
+
+aws s3 ls s3://domainbucket0 --recursive  
+
+###################### To see particular file in s3 #################
+
+aws s3 ls s3://domainbucket0/wp-script-1    
+
+######################### To see the size of bucket ###################
+
+aws s3 ls s3://domainbucket/ --recursive | awk 'BEGIN {total=0}{total+=s3}END{print total/1024/1024* MB*}'         
+
+                            $$$$$$$$$$$$$$$$ END $$$$$$$$$$$$$$$$
+
